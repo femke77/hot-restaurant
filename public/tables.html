@@ -51,7 +51,7 @@
                         <div class="card-header">
                             <h1>Current Reservations</h1>
                         </div>
-                        <div class = "card-body">
+                        <div class = "card-body" id="realRes">
 
                         </div>
                     </div>
@@ -63,7 +63,7 @@
                         <div class="card-header">
                             <h1>Waitlist Reservations</h1>
                         </div>
-                        <div class = "card-body">
+                        <div class = "card-body" id="waitListed">
 
                         </div>
                     </div>
@@ -87,7 +87,45 @@
 </body>
 
 
-<!-- JQUERY FOR DYNAMICALLY CALLING THE DATA FROM THE SERVER AND DISPALYING ON THE HTML -->
+<!-- JQUERY FOR DYNAMICALLY CALLING THE DATA FROM THE SERVER AND DISPLAYING ON THE HTML -->
+<script>
+
+    $.ajax({url: "/api/tables", method : "Get"})
+    .then(function(tableData) {
+
+        for(var i = 0; i < tableData.length; i++) {
+
+
+        
+       
+            var tableList = $("<ul>");
+            tableList.addClass("text-center");
+            tableList.addClass("<list-group>");
+            $("#realRes").append(tableList);
+            var tableListItem = $("<li class='list-group-item'>");
+            tableListItem.append("Name: " +tableData[i].customerName);
+            tableListItem.append("ID: " +tableData[i].customerId);
+            tableListItem.append("Email: " +tableData[i].customerEmail);
+            tableListItem.append("Phone: " +tableData[i].phone);
+
+            tableList.append(tableListItem);
+
+
+
+            
+        }
+
+
+  
+});
+
+
+
+
+
+
+</script>
+
 
 
 </html>
